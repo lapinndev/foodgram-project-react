@@ -19,8 +19,7 @@ from .serializers import (
     RecipeSerializer,
     FavoriteSerializer,
     RecipeCreateSerializer,
-    ShoppingCartSerializer,
-    FavoriteSerializer
+    ShoppingCartSerializer
 )
 from .permissions import AdminOrReadOnly, IsAuthorOrReadOnly
 from users.models import CustomUser, FollowUser
