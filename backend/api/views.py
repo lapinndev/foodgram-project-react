@@ -24,7 +24,7 @@ from .serializers import (
 )
 from .permissions import AdminOrReadOnly, IsAuthorOrReadOnly
 from users.models import CustomUser, FollowUser
-#from tag.models import Tag
+from tag.models import Tag
 from ingredients.models import Ingredient
 from recipes.models import Recipe, RecipeIngredients
 from shoppingcart.models import ShoppingCart
@@ -99,7 +99,7 @@ class UserViewSet(UserViewSet):
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
 
-#    queryset = Tag.objects.all()
+    queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = (AdminOrReadOnly,)
     search_fields = ('^name',)
