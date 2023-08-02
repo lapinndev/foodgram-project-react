@@ -36,11 +36,6 @@ class CustomUser(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-        constraints = (
-            models.UniqueConstraint(
-                fields=('email', 'username'), name='unique_custom_user'
-            ),
-        )
 
     def __str__(self):
         return self.username

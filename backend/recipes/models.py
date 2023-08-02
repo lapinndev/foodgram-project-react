@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+
 from users.models import CustomUser
 from tag.models import Tag
 from ingredients.models import Ingredient
@@ -7,6 +8,7 @@ from ingredients.models import Ingredient
 
 MAX_RECIPENAME_LENGHT = 200
 MIN_COOKING_AMOUNT = 1
+MIN_AMOUNT = 1
 
 
 class Recipe(models.Model):
@@ -44,8 +46,10 @@ class Recipe(models.Model):
         verbose_name='Время',
         validators=[MinValueValidator(MIN_COOKING_AMOUNT)]
     )
-    is_favorited = models.BooleanField(default=False)
-    in_shopping_cart = models.BooleanField(default=False)
+    date = models.DateTimeField(
+        verbose_name='Дата публикации',
+        auto_now_add=True
+    )
 
     class Meta:
         verbose_name = 'Рецепт'
@@ -75,7 +79,7 @@ class RecipeIngredients(models.Model):
     )
     amount = models.IntegerField(
         verbose_name='Количество',
-        validators=[MinValueValidator(MIN_COOKING_AMOUNT)]
+        validators=[MinValueValidator(MIN_AMOUNT)]
     )
 
     class Meta:

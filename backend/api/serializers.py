@@ -93,6 +93,11 @@ class SubscriptionsSerializer(CustomUserSerializer):
     def get_recipes(self, obj):
         request = self.context.get('request')
         limit = request.GET.get('recipes_limit')
+        if limit:
+            try:
+                limit = int(limit)
+            except ValueError:
+                limit = None
         recipes = Recipe.objects.filter(author=obj)
         if limit:
             recipes = recipes[:int(limit)]
@@ -215,12 +220,12 @@ class RecipeCreateSerializer(ModelSerializer):
         if not tags:
             raise ValidationError({'tags': 'Нужно добавить тег!'})
         tags = []
-        for i in tags:
-            if i['id'] in tags:
+        for tag in tags:
+            if tag['id'] in tags:
                 raise ValidationError(
                     {'tags': 'Тег уже есть в списке'}
                 )
-            tags.append(i)
+            tags.append(tag)
         return data
 
     def validate_ingredients(self, data):
@@ -229,14 +234,14 @@ class RecipeCreateSerializer(ModelSerializer):
             raise ValidationError(
                 {'ingredients': 'Нужно добавить ингредиент!'}
             )
-        ingredients = []
-        for i in ingredients:
-            if i in ingredients:
+        seen_ingredients = []
+        for ingredient in ingredients:
+            if ingredient in seen_ingredients:
                 raise ValidationError(
                     {'ingredients': 'Ингредиенты не могут повторяться'}
                 )
-            ingredients.append(i)
-            if int(i['amount']) < 1:
+            seen_ingredients.append(ingredient)
+            if int(ingredient['amount']) < 1:
                 raise ValidationError(
                     {
                         'amount': (

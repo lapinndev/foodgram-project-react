@@ -187,12 +187,26 @@ class RecipeViewSet(viewsets.ModelViewSet):
             permission_classes=[IsAuthenticated])
     def download_shopping_cart(self, request):
         user = request.user
+        ingredients = self.get_shopping_cart_ingredients(user)
+        result = self.format_ingredients_as_text(ingredients)
+
+        headers = {
+            'Content-Disposition': 'attachment; filename=shopping_cart.txt'
+        }
+        return HttpResponse(
+            result, content_type='text/plain; charset=UTF-8', headers=headers
+        )
+
+    def get_shopping_cart_ingredients(self, user):
         shopping_cart_recipes = Recipe.objects.filter(shoppingcart__user=user)
         ingredients = (
             RecipeIngredients.objects.filter(recipe__in=shopping_cart_recipes)
             .values('ingredient__name', 'ingredient__measurement')
             .annotate(amount=Sum('amount'))
         )
+        return ingredients
+
+    def format_ingredients_as_text(self, ingredients):
         result = ''
         for i in ingredients:
             result += (
@@ -200,9 +214,4 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 f' Amount : {i["amount"]}\n'
                 f' Measurement: {i["ingredient__measurement"]}\n'
             )
-        headers = {
-            'Content-Disposition': 'attachment; filename=shopping_cart.txt'
-        }
-        return HttpResponse(
-            result, content_type='text/plain; charset=UTF-8', headers=headers
-        )
+        return result
