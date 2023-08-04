@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core.exceptions import ValidationError
+from django.db.models import F, Q, UniqueConstraint
 
 MAX_LENGHT = 150
 MAX_EMAIL_LENGHT = 254
@@ -42,31 +42,33 @@ class CustomUser(AbstractUser):
 
 
 class FollowUser(models.Model):
-    author = models.ForeignKey(
-        CustomUser,
-        verbose_name='Пользователь',
-        related_name='subscriber',
-        on_delete=models.CASCADE
-    )
+    """ Модель подписки на автора. """
     user = models.ForeignKey(
         CustomUser,
+        on_delete=models.CASCADE,
+        verbose_name='Автор',
+        related_name='follower',
+    )
+    author = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
         verbose_name='Подписчик',
-        related_name='subscribe',
-        on_delete=models.CASCADE
+        related_name='following'
     )
 
     class Meta:
+        constraints = [
+            UniqueConstraint(
+                fields=('user', 'author'),
+                name='unique_follow'
+            ),
+            models.CheckConstraint(
+                check=~Q(user=F('author')),
+                name='no_self_follow'
+            )
+        ]
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
-        constraints = (
-            models.UniqueConstraint(
-                fields=('user', 'author'), name='unique_follow'
-            ),
-        )
 
     def __str__(self):
-        return f'Пользователь {self.user} подписан на {self.author}'
-
-    def clean(self):
-        if self.user == self.author:
-            raise ValidationError('Самоподписка запрещена!')
+        return f"{self.user} подписан на {self.author}"

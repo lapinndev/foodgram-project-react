@@ -8,7 +8,7 @@ class Ingredient(models.Model):
         verbose_name='Название',
         max_length=MAX_INGREDIENT_LENGHT,
     )
-    measurement = models.CharField(
+    measurement_unit = models.CharField(
         verbose_name='Измерение',
         max_length=MAX_INGREDIENT_LENGHT,
     )
@@ -18,7 +18,7 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ингредиенты'
         constraints = (
             models.UniqueConstraint(
-                fields=('name', 'measurement'), name='unique_ingredient',
+                fields=('name', 'measurement_unit'), name='unique_ingredient',
             ),
         )
 
