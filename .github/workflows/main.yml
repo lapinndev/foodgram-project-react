@@ -111,4 +111,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: $workflow для FOODGRAM успешно выполнен!
+        message: Деплой FOODGRAM успешно выполнен!
