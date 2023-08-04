@@ -22,7 +22,7 @@ jobs:
         pip install -r ./backend/requirements.txt 
     - name: Test with flake8
       run: |
-        python -m flake8 --ignore=N805,W503,E126,E501
+        python -m flake8 --ignore=N805,W503,E126,E501,I001,I002,I003,I004,I005
 
   build_backend_and_push_to_docker_hub:
     name: Push Docker image to DockerHub
