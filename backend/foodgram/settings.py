@@ -7,10 +7,10 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'https://lapinfoodgram.hopto.org/']
+ALLOWED_HOSTS = ['*', 'https://lapinfoodgram.hopto.org']
 
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://127.0.0.1', 'http://127.0.0.1:3000']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://127.0.0.1', 'http://127.0.0.1:3000', 'https://lapinfoodgram.hopto.org']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

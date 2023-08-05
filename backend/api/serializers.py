@@ -52,13 +52,13 @@ class CustomUserSerializer(UserSerializer):
 
 class ChangePasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(write_only=True)
-    old_password = serializers.CharField(write_only=True)
+    current_password = serializers.CharField(write_only=True)
 
     def validate_old_password(self, value):
-        old_password = value
-        if not self.instance.check_password(old_password):
+        current_password = value
+        if not self.instance.check_password(current_password):
             raise serializers.ValidationError(
-                {'old_password': 'Неправильный пароль.'}
+                {'current_password': 'Неправильный пароль.'}
             )
         return value
 
@@ -72,7 +72,7 @@ class ChangePasswordSerializer(serializers.Serializer):
         return data
 
     def update(self, instance, validated_data):
-        if (validated_data['old_password']
+        if (validated_data['current_password']
                 == validated_data['new_password']):
             raise serializers.ValidationError(
                 {'new_password': 'Новый пароль должен отличаться от текущего.'}

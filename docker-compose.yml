@@ -32,16 +32,16 @@ services:
 
 
   gateway:
-    image: lapindev/foodgram_nginx
-    container_name: foodgram_nginx
+    image: lapindev/foodgram_infra
+    container_name: foodgram_infra
     env_file: .env
     volumes:
-      - static_value:/var/html/static/
-      - media_value:/var/html/media/
+      - static_value:/static/
+      - media_value:/media/
     depends_on:
       - backend
     ports:
-      - 80:80
+      - 8000:80
 
 volumes:
   pg_data:
