@@ -127,6 +127,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
+            cd foodgram
             sudo rm -f .env
             sudo touch .env
             sudo chmod 666 .env
