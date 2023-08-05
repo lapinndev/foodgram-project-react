@@ -3,15 +3,15 @@ services:
 
   db:
     image: postgres:13.0-alpine
+    env_file: .env
+    container_name: foodgram_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env
+      - pg_data:/var/lib/postgresql/data
 
   backend:
     image: lapindev/foodgram_backend
     volumes:
-      - static_value:/app/static/
+      - static_value:/backend_static/
       - media_value:/app/media/
     depends_on:
       - db
@@ -22,11 +22,13 @@ services:
 
   frontend:
     image: lapindev/foodgram_frontend
-    volumes:
-      - ../frontend/:/app/result_build/
-    depends_on:
-      - db
     container_name: foodgram_frontend
+    env_file: .env
+    command: cp -r /app/build/. /frontend_static/
+    volumes:
+      - static_value:/frontend_static
+    depends_on:
+      - backend
 
 
   gateway:
@@ -34,7 +36,7 @@ services:
     container_name: foodgram_nginx
     env_file: .env
     volumes:
-      - static_value:/static/
+      - static_value:/staticfiles/
       - media_value:/media/
     depends_on:
       - backend
