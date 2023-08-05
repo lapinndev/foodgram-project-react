@@ -122,7 +122,7 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "infra/docker-compose.production.yml"
+        source: "infra/docker-compose.yml"
         target: "foodgram"
         overwrite: true
     - name: Executing remote ssh commands to deploy
