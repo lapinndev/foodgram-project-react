@@ -146,7 +146,6 @@ jobs:
             sudo docker-compose exec -T backend python manage.py makemigrations
             sudo docker-compose exec -T backend python manage.py migrate --no-input
             sudo docker-compose exec -T backend python manage.py collectstatic --no-input
-            sudo docker-compose exec -T backend python manage.py load_database
 
   send_message:
     name: Sending Telegram message
