@@ -84,7 +84,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
 
 ##############################################
-  # NGINX
+  # NGIN
 ##############################################
   build_gateway_and_push_to_docker_hub:
     name: Push gateway Docker image to DockerHub
