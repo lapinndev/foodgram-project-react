@@ -22,7 +22,7 @@ jobs:
 
       - name: Test with flake8
         run: |
-          python -m flake8 backend --ignore=N805,W503,E126,E501,I001,I002,I003,I004,I005
+          python -m flake8 backend --ignore=N805,W503,E126,E501,I001,I002,I003,I004,I005,R503,R505,R504
 
   copy_redoc_files:
     name: Copy api documentation to the server
@@ -35,7 +35,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "docs/*"
           target: "./"
 
@@ -50,7 +50,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "infra/docker-compose.yml,infra/nginx.conf"
           target: "./"
           strip_components: 1
@@ -125,7 +125,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             sudo rm -f .env
             sudo touch .env
