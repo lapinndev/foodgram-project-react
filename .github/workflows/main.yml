@@ -37,7 +37,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "docs/*"
-          target: "./"
+          target: "foodgram"
 
   copy_project_files:
     name: Copy project files to the server
@@ -52,7 +52,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "infra/docker-compose.yml,infra/nginx.conf"
-          target: "./"
+          target: "foodgram"
           strip_components: 1
 
   build_and_push_backend_to_docker_hub:
