@@ -44,6 +44,6 @@ services:
       - 80:80
 
 volumes:
-  postgres_data:
+  pg_data:
   static_value:
   media_value:
