@@ -137,6 +137,7 @@ jobs:
           sudo rm -f .env
           sudo touch .env
           sudo chmod 666 .env
+          sudo chmod 666 docker-compose.yml
           sudo echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           sudo echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
           sudo echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
