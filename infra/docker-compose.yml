@@ -34,8 +34,8 @@ services:
     container_name: foodgram_nginx
     env_file: .env
     volumes:
-      - static:/static/
-      - media:/media/
+      - static_value:/static/
+      - media_value:/media/
     depends_on:
       - backend
     ports:
