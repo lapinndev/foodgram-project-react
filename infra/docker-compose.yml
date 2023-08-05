@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.env
+      - .env
 
   backend:
     image: lapindev/foodgram_backend
@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
     env_file:
-      - ./.env
+      - .env
     restart: always
     container_name: foodgram_backend
 
@@ -29,19 +29,17 @@ services:
     container_name: foodgram_frontend
 
 
-  nginx:
-    image: nginx:1.19.3
-    ports:
-      - "80:80"
+  gateway:
+    image: lapindev/foodgram_nginx
+    container_name: foodgram_nginx
+    env_file: .env
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ../frontend/build:/usr/share/nginx/html/
-      - ../docs/:/usr/share/nginx/html/api/docs/
-      - static_value:/var/html/static/
-      - media_value:/var/html/media/
+      - static:/app/static/
+      - media:/app/media/
     depends_on:
       - backend
-    container_name: foodgram_nginx
+    ports:
+      - 8000:80
 
 volumes:
   postgres_data:
