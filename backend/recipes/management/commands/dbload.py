@@ -15,16 +15,7 @@ class Command(BaseCommand):
 
         with open(file_path, encoding='utf-8') as f:
             jsondata = json.load(f)
-            if 'color' in jsondata[0]:
-                for line in jsondata:
-                    if not Tag.objects.filter(
-                       slug=line['slug']).exists():
-                        Tag.objects.create(
-                            name=line['name'],
-                            color=line['color'],
-                            slug=line['slug'],
-                        )
-            elif 'measurement_unit' in jsondata[0]:
+            if 'measurement_unit' in jsondata[0]:
                 for line in jsondata:
                     if not Ingredient.objects.filter(
                        name=line['name'],
