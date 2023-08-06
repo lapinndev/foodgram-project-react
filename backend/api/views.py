@@ -197,8 +197,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
         result = ''
         for i in ingredients:
             result += (
-                f' Name : {i["ingredient__name"]}\n'
-                f' Amount : {i["amount"]}\n'
-                f' Measurement_unit: {i["ingredient__measurement_unit"]}\n'
+                f' {i["ingredient__name"]}-'
+                f' {i["amount"]}-'
+                f' {i["ingredient__measurement_unit"]}\n'
             )
         return result

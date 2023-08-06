@@ -54,6 +54,7 @@ class Recipe(models.Model):
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
+        ordering = ('-date',)
         constraints = (
             models.UniqueConstraint(
                 fields=('name', 'author'), name='unique_recipe'
