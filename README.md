@@ -15,7 +15,7 @@
 
 - Клонировать репозиторий:
 ```
-https://github.com/mikhailsoldatkin/foodgram-project-react.git
+https://github.com/lapinndev/foodgram-project-react.git
 ```
 
 - В директории infra файл example.env переименовать в .env и заполнить своими данными:
